@@ -1,0 +1,16 @@
+[Unit]
+Description=Flask Application
+After=network.target
+
+[Service]
+WorkingDirectory=/home/wapa/Documents/ModemInterface/ModemInterface
+ExecStart=/bin/bash -c 'source /home/wapa/Documents/ModemInterface/ModemInterface/modemEnv/bin/activate && /home/wapa/Documents/ModemInterface/ModemInterface/modemEnv/bin/python /home/wapa/Documents/ModemInterface/ModemInterface/ModemApi.py'
+Restart=on-failure
+RestartSec=5
+Environment=PATH=/home/wapa/Documents/ModemInterface/ModemInterface/modemEnv/bin
+Environment=FLASK_APP=ModemApi.py
+StandardOutput=inherit
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target
