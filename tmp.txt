@@ -5,10 +5,10 @@ Wants=network-online.target
 
 [Service]
 WorkingDirectory=/home/wapa/Documents/Hella_sensor
-ExecStart=/bin/bash -c 'while ! ip addr show eth0 | grep -q "192.168.1.1"; do sleep 1; done && source /home/wapa/Documents/Hella_sensor/hella-fast/bin/activate && uvicorn HellaListener:app --host 192.168.1.1 --port 8080'
+ExecStart=/bin/bash -c '/bin/bash -c "while ! /sbin/ip addr show eth0 | /bin/grep -q \"192.168.1.1\"; do /bin/sleep 1; done && source /home/wapa/Documents/Hella_sensor/hella/bin/activate && /home/wapa/Documents/Hella_sensor/hella/bin/uvicorn HellaListener:app --host 192.168.1.1 --port 8080"'
 Restart=on-failure
 RestartSec=10
-Environment=PATH=/home/wapa/Documents/Hella_sensor/hella-fast/bin
+Environment=PATH=/home/wapa/Documents/Hella_sensor/hella/bin
 StandardOutput=journal
 StandardError=journal
 
