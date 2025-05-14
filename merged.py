@@ -28,7 +28,7 @@ def readCapacity(bus):
     return capacity
 
 def get_battery_status(voltage):
-    if 3.87 <= voltage <= 4.2:
+    if 3.87 <= voltage <= 4.5:
         return "Full"
     elif 3.7 <= voltage < 3.87:
         return "High"
