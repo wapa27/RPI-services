@@ -1,0 +1,11 @@
+[Unit]
+Description=Restore iptables rules
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/restore_iptables.sh
+Type=oneshot
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
