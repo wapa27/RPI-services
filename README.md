@@ -100,14 +100,6 @@
 * Add the following to the override file:
 
   ```ini
-  [Service]
-  ExecStart=
-  ExecStart=/sbin/dhcpcd -q -w
-  ```
-* Modify `/etc/dhcpcd.conf` to set static IP:
-  Add:
-
-  ```
   interface eth0
   static ip_address=192.168.1.1/24
   nolink
@@ -129,6 +121,13 @@
   sudo apt-get update
   sudo apt-get install dnsmasq
   ```
+* Modify /etc/dnsmasq.conf:
+  ```
+bind-interfaces
+dhcp-range=192.168.50.10,192.168.50.50,12h
+dhcp-option=3,192.168.50.1
+dhcp-option=6,8.8.8.8,8.8.4.4
+```
 * Create override directory if it doesn't exist and edit override file:
 
   ```bash
@@ -137,10 +136,14 @@
   ```
 * Add the following:
 
-  ```
+  [Unit]
+  After=network-online.target
+  Wants=network-online.target
   [Service]
-  ExecStart=
-  ExecStart=/usr/sbin/dnsmasq --no-daemon --interface=eth0 --bind-interfaces --dhcp-range=192.168.50.10,192.168.50.50,12h --dhcp-option=3,192.168.50.1 --dhcp-option=6,8.8.8.8,8.8.4.4
+  Restart=on-failure
+  RestartSec=10
+  ExecStartPre=/bin/bash -c 'until ip link show eth0 | grep -q "state UP"; do sleep 1; done
+
   ```
 * Reload systemd and enable dnsmasq:
 
