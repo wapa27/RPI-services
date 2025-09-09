@@ -122,7 +122,7 @@
   sudo apt-get install dnsmasq
   ```
 * Modify /etc/dnsmasq.conf:
-  ```
+```bash
 bind-interfaces
 dhcp-range=192.168.50.10,192.168.50.50,12h
 dhcp-option=3,192.168.50.1
@@ -135,7 +135,7 @@ dhcp-option=6,8.8.8.8,8.8.4.4
   sudo nano /etc/systemd/system/dnsmasq.service.d/override.conf
   ```
 * Add the following:
-
+```
   [Unit]
   After=network-online.target
   Wants=network-online.target
